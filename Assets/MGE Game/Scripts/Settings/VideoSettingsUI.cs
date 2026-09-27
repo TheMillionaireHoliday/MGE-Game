@@ -15,9 +15,6 @@ public class VideoSettingsUI : MonoBehaviour, ISettingsPanel
     [SerializeField] private TMP_Dropdown resolutionDropdown;
     [SerializeField] private Toggle fullscreenToggle;
 
-    [Header("VSync")]
-    [SerializeField] private Toggle vSyncToggle;
-
     private GameSettings _draft;
     private bool _wired;
     private bool _suppressCallbacks;
@@ -39,7 +36,6 @@ public class VideoSettingsUI : MonoBehaviour, ISettingsPanel
         fovSlider.onValueChanged.AddListener(OnFovChanged);
         resolutionDropdown.onValueChanged.AddListener(OnResolutionChanged);
         fullscreenToggle.onValueChanged.AddListener(OnFullscreenChanged);
-        vSyncToggle.onValueChanged.AddListener(OnVSyncChanged);
     }
 
     // ---- ISettingsPanel ----
@@ -58,7 +54,6 @@ public class VideoSettingsUI : MonoBehaviour, ISettingsPanel
         mgr.SetCameraFov(_draft.cameraFov);
         mgr.SetResolutionIndex(_draft.resolutionIndex);  // raw index — see OnResolutionChanged
         mgr.SetFullscreen(_draft.fullscreen);
-        mgr.SetVSync(_draft.vSync);
         mgr.SaveAndApply();
     }
 
@@ -182,9 +177,8 @@ public class VideoSettingsUI : MonoBehaviour, ISettingsPanel
             _draft.resolutionIndex = _dropdownToRaw[dropdownIndex];
         }
 
-        // Fullscreen / VSync
+        // Fullscreen
         fullscreenToggle.SetIsOnWithoutNotify(_draft.fullscreen);
-        vSyncToggle.SetIsOnWithoutNotify(_draft.vSync);
 
         _suppressCallbacks = false;
         IsDirty = false;
@@ -214,13 +208,6 @@ public class VideoSettingsUI : MonoBehaviour, ISettingsPanel
     {
         if (_suppressCallbacks || _draft == null) return;
         _draft.fullscreen = value;
-        IsDirty = true;
-    }
-
-    private void OnVSyncChanged(bool value)
-    {
-        if (_suppressCallbacks || _draft == null) return;
-        _draft.vSync = value;
         IsDirty = true;
     }
 }

@@ -398,7 +398,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 0
-  _initializedTimestamp: -8584115832519186018
+  _initializedTimestamp: -8584111515389929884
   NetworkObserver: {fileID: 0}
   _enablePrediction: 0
   _predictionType: 0
@@ -445,7 +445,7 @@ MonoBehaviour:
     Rotation: 1
     Scale: 0
   _useScaledTime: 1
-  _interpolation: 1
+  _interpolation: 2
   _extrapolation: 2
   _enableTeleport: 1
   _teleportThreshold: 1
@@ -730,7 +730,6 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 6583972326018211316}
   bodyTransform: {fileID: 5467285084242854812}
   cameraTransform: {fileID: 6877104908361086388}
-  sensitivityMultiplier: 1
   horizontalSensitivity: 1
   verticalSensitivity: 1
   minYRotation: -90
@@ -982,7 +981,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 0
-  _initializedTimestamp: -8584115832519186018
+  _initializedTimestamp: -8584111515389929884
   NetworkObserver: {fileID: 0}
   _enablePrediction: 0
   _predictionType: 0

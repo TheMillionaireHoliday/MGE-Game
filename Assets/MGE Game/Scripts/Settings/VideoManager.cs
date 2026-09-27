@@ -89,9 +89,4 @@ public class VideoManager : MonoBehaviour
         Screen.SetResolution(r.Value.width, r.Value.height, mode, rate);
         OnResolutionChanged?.Invoke(index);
     }
-
-    public void SetVSync(bool enabled)
-    {
-        QualitySettings.vSyncCount = enabled ? 1 : 0;
-    }
 }

@@ -13,7 +13,6 @@ public class GameSettings
     // Video
     public int resolutionIndex = -1;    // -1 = "not set yet, adopt current on first open"
     public bool fullscreen = true;
-    public bool vSync = true;
 
     public List<BindingOverride> bindingOverrides = new();
 
@@ -29,7 +28,6 @@ public class GameSettings
 
         resolutionIndex = other.resolutionIndex;
         fullscreen = other.fullscreen;
-        vSync = other.vSync;
 
         bindingOverrides = new List<BindingOverride>(other.bindingOverrides);
     }

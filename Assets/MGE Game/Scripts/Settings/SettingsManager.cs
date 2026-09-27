@@ -66,7 +66,6 @@ public class SettingsManager : MonoBehaviour
     // ---------- Video ----------
     public void SetResolutionIndex(int index) { Current.resolutionIndex = index; }
     public void SetFullscreen(bool value) { Current.fullscreen = value; }
-    public void SetVSync(bool value) { Current.vSync = value; }
 
     // ---------- Apply ----------
     public void ApplyAll()
@@ -89,7 +88,6 @@ public class SettingsManager : MonoBehaviour
         if (v != null)
         {
             v.SetCameraFov(Current.cameraFov);
-            v.SetVSync(Current.vSync);
             v.ApplyResolution(Current.resolutionIndex, Current.fullscreen);
         }
         else
