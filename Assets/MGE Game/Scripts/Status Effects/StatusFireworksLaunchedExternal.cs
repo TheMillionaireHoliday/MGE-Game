@@ -3,7 +3,7 @@ using FishNet.Object;
 using Fragsurf.Movement;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class StatusFireworksLaunchedExternal : NetworkBehaviour
@@ -27,8 +27,8 @@ public class StatusFireworksLaunchedExternal : NetworkBehaviour
     public Action OnExternalRemoveRequest;
 
     [Server]
-    public void AddStatus(NetworkObject _target) => AddStatusTask(_target);
-    private async void AddStatusTask(NetworkObject _target)
+    public void AddStatus(NetworkObject _target) => AddStatusTask(_target).Forget();
+    private async UniTaskVoid AddStatusTask(NetworkObject _target)
     {
         // ============ Adding
 
@@ -77,7 +77,7 @@ public class StatusFireworksLaunchedExternal : NetworkBehaviour
     }
 
     [Server]
-    private async Task StatusEffectLifecycle(CancellationToken cancellationToken)
+    private async UniTask StatusEffectLifecycle(CancellationToken cancellationToken)
     {
         // ======== Min period =========
 
@@ -86,7 +86,7 @@ public class StatusFireworksLaunchedExternal : NetworkBehaviour
         {
             if (cancellationToken.IsCancellationRequested) return;
             elapsedTime += Time.deltaTime;
-            await Task.Yield();
+            await UniTask.Yield();
         }
 
         // ======== While in air ========
@@ -96,7 +96,7 @@ public class StatusFireworksLaunchedExternal : NetworkBehaviour
         while (true)
         {
             if (cancellationToken.IsCancellationRequested) return;
-            await Task.Yield();
+            await UniTask.Yield();
         }
     }
 
@@ -139,11 +139,11 @@ public class StatusFireworksLaunchedExternal : NetworkBehaviour
     }
 
     [TargetRpc]
-    public void TargetStartEndCondition(NetworkConnection conn, NetworkObject obj) => TargetStartEndConditionTask(conn, obj);
+    public void TargetStartEndCondition(NetworkConnection conn, NetworkObject obj) => TargetStartEndConditionTask(conn, obj).Forget();
 
     private bool interruptedClientCheck = true;
 
-    private async void TargetStartEndConditionTask(NetworkConnection conn, NetworkObject obj)
+    private async UniTaskVoid TargetStartEndConditionTask(NetworkConnection conn, NetworkObject obj)
     {
         targetClient = obj;
         characterClient = obj.GetComponent<SurfCharacter>();
@@ -157,14 +157,14 @@ public class StatusFireworksLaunchedExternal : NetworkBehaviour
     }
 
 
-    private async Task WaitingForPlayerToTouchGround(CancellationToken cancellationToken)
+    private async UniTask WaitingForPlayerToTouchGround(CancellationToken cancellationToken)
     {
         while (characterClient.groundObject == null)
         {
             if (cancellationToken.IsCancellationRequested)
                 return;
 
-            await Task.Yield();
+            await UniTask.Yield();
         }
 
         interruptedClientCheck = false;
